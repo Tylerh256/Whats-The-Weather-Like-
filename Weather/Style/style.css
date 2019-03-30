@@ -1,0 +1,64 @@
+﻿@font-face {
+    font-family: Comfortaa-Regular;
+    src: url(/fonts//Comfortaa-Regular.ttf);
+}
+
+@font-face {
+    font-family: Comfortaa-Bold;
+    src: url(/fonts//Comfortaa-Bold.ttf);
+}
+
+@font-face {
+    font-family: Comfortaa-Lite;
+    src: url(/fonts//Comfortaa-Lite.ttf);
+}
+
+body {
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Comfortaa-Bold;
+}
+
+p {
+    font-family: Comfortaa-Regular;
+}
+
+.header {
+    background-color: #7EC0EE;
+    text-align:center;
+    color:#fff;
+}
+
+.header h2{
+    text-align:center;
+}
+
+.ForecastValues p{
+    position:relative;
+    opacity:0;
+    left:-250px;
+    /*display:none;*/
+}
+
+.WeatherWrapper{
+    display:flex;
+    justify-content:space-between
+}
+
+.WeatherIcon img{
+    width:500px;
+    opacity:0;
+    position:relative;
+    right:-500px;
+}
+
+.FiveDayForecastWrapper ul{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    text-align:center;
+    list-style-type:none;
+    position:relative;
+    left:-1140px;
+}

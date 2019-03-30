@@ -1,0 +1,37 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Weather API</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/Style/bootstrap-3.3.7-dist/css/bootstrap.css" type="text/css" />
+
+    <link rel="stylesheet" href="~/Style/style.css" type="text/css" />
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="~/Style/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $(".header").fadeIn("slow");
+        });
+    </script>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="jumbotron jumbotron-fluid header" style="display:none">
+            <h1>
+                Whats The Weather Like!?
+            </h1>
+        </div>
+        <div class="container">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

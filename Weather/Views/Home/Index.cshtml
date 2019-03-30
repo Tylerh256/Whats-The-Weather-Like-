@@ -1,0 +1,174 @@
+﻿@model Weather.Models.Forecast
+@{
+    ViewBag.Title = "Weather API";
+    ViewBag.Error = ViewBag.Error;
+}
+
+@if (string.IsNullOrEmpty(ViewBag.Error))
+{
+    <h2>Enter the name of City to find out what the weather is like there:</h2>
+}
+else
+{
+    <h2 class="text-danger">@ViewBag.Error</h2>
+}
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    @Html.TextBoxFor(m => m.City)
+    <button type="submit" class="btn btn-info">Enter</button>
+}
+
+<script>
+    $(document).ready(function () {
+        var counter = 0;
+        //counter++;
+        //$(".ForecastValues").children().each(function () {
+        //    counter++;
+        //    $(this).css("animation-delay", counter + "s")
+        //});
+        $(".FiveDayForecastWrapper > ul").animate({
+            left: '0',
+            opacity: 1
+        }, 1000);
+        $(".WeatherIcon > img").animate({
+            right: '0',
+            opacity: 1
+        }, 700);
+        $(".ForecastValues").children().each(function () {
+            counter++;
+            $(this).delay(counter * 100).animate({
+                left: '0',
+                opacity: 1
+            });
+        });
+    });
+</script>
+
+@if (string.IsNullOrEmpty(ViewBag.Error))
+{
+    if (!(Model.City == null))
+    {
+        <div class="FiveDayForecastWrapper">
+            <h2>5 Day Forecast</h2>
+            <ul>
+                @{
+                    int counter = 0;
+                }
+                @for (int i = 0; i < 39; i += 8)
+                {
+                    <li>
+                        <h3>@DateTime.Now.AddDays(counter).DayOfWeek</h3>
+                        @if (Model.FiveDayForecast[i].Weather.Id >= 300 && Model.FiveDayForecast[i].Weather.Id < 400)
+                        {
+                            <img src="~/Images/WeatherIcons/rainy-4.svg" />
+                        }
+                        else if (Model.FiveDayForecast[i].Weather.Id >= 500 && Model.FiveDayForecast[i].Weather.Id < 600)
+                        {
+                            if (Model.FiveDayForecast[i].Weather.Id < 502)
+                            {
+                                <img src="~/Images/WeatherIcons/rainy-4.svg" />
+                            }
+                            else
+                            {
+                                <img src="~/Images/WeatherIcons/rainy-5.svg" />
+                            }
+                        }
+                        else if (Model.FiveDayForecast[i].Weather.Id >= 600 && Model.FiveDayForecast[i].Weather.Id < 700)
+                        {
+                            if (Model.FiveDayForecast[i].Weather.Id == 600)
+                            {
+                                <img src="~/Images/WeatherIcons/snowy-4.svg" />
+                            }
+                            if (Model.FiveDayForecast[i].Weather.Id == 601)
+                            {
+                                <img src="~/Images/WeatherIcons/snowy-5.svg" />
+                            }
+                            else
+                            {
+                                <img src="~/Images/WeatherIcons/snowy-6.svg" />
+                            }
+                        }
+                        else if (Model.FiveDayForecast[i].Weather.Id >= 700 && Model.FiveDayForecast[i].Weather.Id < 800)
+                        {
+                            <img src="~/Images/WeatherIcons/cloudy.svg" />
+                        }
+                        else if (Model.FiveDayForecast[i].Weather.Id == 800)
+                        {
+                            <img src="~/Images/WeatherIcons/day.svg" />
+                        }
+                        else
+                        {
+                            <img src="~/Images/WeatherIcons/cloudy.svg" />
+                        }
+                        <p>@Model.FiveDayForecast[i].Weather.Description</p>
+                        <br />
+                    </li>
+                    counter++;
+                }
+            </ul>
+        </div>
+        <div class="WeatherWrapper">
+            <div class="ForecastValues">
+                <h2>Current Weather</h2>
+                <p>City: <span>@Model.City</span></p>
+                <p>Coordinates: @Model.Coordinates.Longitude, @Model.Coordinates.Latitude</p>
+                <p>Weather: @Model.Weather.Description</p>
+                <p>Temperature: @Model.Main.Temperature</p>
+                <p>Pressure: @Model.Main.Pressure</p>
+                <p>Humidity: @Model.Main.Humidity</p>
+                <p>Low Temp: @Model.Main.Temp_Min</p>
+                <p>High Temp:@Model.Main.Temp_Max</p>
+                <p>Sea Level:@Model.Main.Sea_Level</p>
+                <p>Ground Level: @Model.Main.Groud_Level</p>
+                <p>Clouds: @Model.Clouds.Cloudiness</p>
+                <p>Rain: @Model.Rain.Volume</p>
+                <p>Snow: @Model.Snow.Volume</p>
+            </div>
+            <div class="WeatherIcon">
+                @if (Model.Weather.Id >= 300 && Model.Weather.Id < 400)
+                {
+                    <img src="~/Images/WeatherIcons/rainy-4.svg" />
+                }
+                else if (Model.Weather.Id >= 500 && Model.Weather.Id < 600)
+                {
+                    if (Model.Weather.Id < 502)
+                    {
+                        <img src="~/Images/WeatherIcons/rainy-4.svg" />
+                    }
+                    else
+                    {
+                        <img src="~/Images/WeatherIcons/rainy-5.svg" />
+                    }
+                }
+                else if (Model.Weather.Id >= 600 && Model.Weather.Id < 700)
+                {
+                    if (Model.Weather.Id == 600)
+                    {
+                        <img src="~/Images/WeatherIcons/snowy-4.svg" />
+                    }
+                    if (Model.Weather.Id == 601)
+                    {
+                        <img src="~/Images/WeatherIcons/snowy-5.svg" />
+                    }
+                    else
+                    {
+                        <img src="~/Images/WeatherIcons/snowy-6.svg" />
+                    }
+                }
+                else if (Model.Weather.Id >= 700 && Model.Weather.Id < 800)
+                {
+                    <img src="~/Images/WeatherIcons/cloudy.svg" />
+                }
+                else if (Model.Weather.Id == 800)
+                {
+                    <img src="~/Images/WeatherIcons/day.svg" />
+                }
+                else
+                {
+                    <img src="~/Images/WeatherIcons/cloudy.svg" />
+                }
+            </div>
+        </div>
+    }
+}
